@@ -1,5 +1,6 @@
 package me.tekercs.xnotif.services;
 
+import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 
@@ -9,29 +10,21 @@ import android.service.notification.StatusBarNotification;
 
 public class NotificationCatchService extends NotificationListenerService
 {
-    public NotificationCatchService()
-    {
-        System.out.println("Service started");
-    }
-
-    @Override
-    public void onListenerConnected()
-    {
-        super.onListenerConnected();
-        System.out.println("Listener connected to NotificationManager!");
-    }
-
     @Override
     public void onNotificationPosted(StatusBarNotification sbn)
     {
         super.onNotificationPosted(sbn);
-        System.out.println("Notification posted lel !!!");
+
+        Bundle extras = sbn.getNotification().extras;
+        String title = extras.getString("android.title");
+        String text = extras.getCharSequence("android.text").toString();
+
+        System.out.println(title + "/" + text);
     }
 
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn)
     {
         super.onNotificationRemoved(sbn);
-        System.out.println("Notification removed lel !!!");
     }
 }
