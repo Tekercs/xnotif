@@ -10,8 +10,33 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="me.tekercs.xnotif.MainActivity">
 
-    <TextView
+    <Button
+        android:text="Start service"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="It works, setting will be here" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginBottom="440dp"
+        android:onClick="startService"
+        android:id="@+id/button2" />
+
+    <Button
+        android:text="Request permission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:layout_alignParentTop="true"
+        android:onClick="requestPermission"
+        android:layout_alignStart="@+id/button2"
+        android:layout_marginTop="44dp" />
+
+    <Button
+        android:text="sample noti"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="fireDummyNotification"
+        android:id="@+id/button"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/button3"
+        android:layout_alignStart="@+id/button3" />
 </RelativeLayout>
