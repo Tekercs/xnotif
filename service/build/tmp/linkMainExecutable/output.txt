@@ -1,4 +1,0 @@
-See file:///home/sebestyen/Desktop/xnotif/service/build/tmp/linkMainExecutable/output.txt for all output for linkMainExecutable.
-linking main successful.
-
-Finished linkMainExecutable, see full log file:///home/sebestyen/Desktop/xnotif/service/build/tmp/linkMainExecutable/output.txt.

@@ -1,4 +1,0 @@
-See file:///home/sebestyen/Desktop/xnotif/service/build/tmp/compileMainExecutableMainCpp/output.txt for all output for compileMainExecutableMainCpp.
-compiling main.cpp successful.
-
-Finished compileMainExecutableMainCpp, see full log file:///home/sebestyen/Desktop/xnotif/service/build/tmp/compileMainExecutableMainCpp/output.txt.

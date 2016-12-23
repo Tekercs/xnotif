@@ -1,4 +1,0 @@
--o
-/home/sebestyen/Desktop/xnotif/service/build/exe/main/main
-/home/sebestyen/Desktop/xnotif/service/build/objs/main/mainCpp/e3dsrravxe4u7ph381hbbruuh/main.o
--m64

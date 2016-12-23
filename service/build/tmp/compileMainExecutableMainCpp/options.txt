@@ -1,6 +1,0 @@
--x
-c++
--c
--I
-/home/sebestyen/Desktop/xnotif/service/src/main/headers
--m64
