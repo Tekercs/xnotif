@@ -1,11 +1,10 @@
 apply plugin: "cpp"
 
-model {
-    components {
-        main(NativeExecutableSpec) {
-            
-        }
+model 
+{
+    components 
+    {
+        main(NativeExecutableSpec) 
+        { }
     }
 }
-
-
