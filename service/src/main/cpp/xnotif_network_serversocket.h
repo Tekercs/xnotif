@@ -3,7 +3,7 @@
 
 #include <cstdint>
 #include <netinet/in.h>
-
+#include "xnotif_network_connection.h"
 
 namespace xnotif::network
 {
@@ -20,7 +20,7 @@ namespace xnotif::network
 		~ServerSocket();
 
 		ServerSocket& bindSocket();
-		void lookForConnection();
+		Connection* lookForConnection();
 		void closeSocket();
 	};
 }

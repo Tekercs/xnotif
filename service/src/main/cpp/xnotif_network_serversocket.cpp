@@ -24,13 +24,15 @@ xnotif::network::ServerSocket& xnotif::network::ServerSocket::bindSocket()
 	return *this;
 }
 
-void xnotif::network::ServerSocket::lookForConnection()
+xnotif::network::Connection* xnotif::network::ServerSocket::lookForConnection()
 {
 	listen(this->socketDesc, 5);
 
 	struct sockaddr_in clientAddress;
 	int clientLength = sizeof(clientAddress);
 	int clientSocket = accept(this->socketDesc, (struct sockaddr *) &clientAddress, (socklen_t *) &clientLength );
+
+	return new Connection(clientSocket);
 }
 
 void xnotif::network::ServerSocket::closeSocket()
