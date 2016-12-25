@@ -8,5 +8,7 @@ int main()
 	ServerSocket* ssocket = new ServerSocket;
 	ssocket->bindSocket().lookForConnection();
 
+	ssocket->closeSocket();
+
 	return 0;
 }

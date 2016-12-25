@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unistd.h>
 #include <sys/socket.h>
 #include <string.h>
 #include "xnotif_network_serversocket.h"
@@ -10,6 +11,11 @@ xnotif::network::ServerSocket::ServerSocket()
 	this->address.sin_family = AF_INET;
     this->address.sin_port = htons((uint16_t) xnotif::network::ServerSocket::PORT_NUMBER);
     this->address.sin_addr.s_addr = INADDR_ANY;
+}
+
+xnotif::network::ServerSocket::~ServerSocket()
+{
+	this->closeSocket();
 }
 
 xnotif::network::ServerSocket& xnotif::network::ServerSocket::bindSocket()
@@ -25,4 +31,9 @@ void xnotif::network::ServerSocket::lookForConnection()
 	struct sockaddr_in clientAddress;
 	int clientLength = sizeof(clientAddress);
 	int clientSocket = accept(this->socketDesc, (struct sockaddr *) &clientAddress, (socklen_t *) &clientLength );
+}
+
+void xnotif::network::ServerSocket::closeSocket()
+{
+	close(this->socketDesc);
 }

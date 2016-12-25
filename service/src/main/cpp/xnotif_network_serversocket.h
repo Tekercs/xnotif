@@ -17,8 +17,11 @@ namespace xnotif::network
 		static const uint16_t PORT_NUMBER = 14567;
 
 		ServerSocket();
+		~ServerSocket();
+
 		ServerSocket& bindSocket();
 		void lookForConnection();
+		void closeSocket();
 	};
 }
 
