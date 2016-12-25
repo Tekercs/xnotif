@@ -1,14 +1,12 @@
 #include <iostream>
-#include "xnoteserv_networking_serversocket.h"
+#include "xnotif_network_serversocket.h"
 
-using namespace xnoteserv::networking;
+using namespace xnotif::network;
 
 int main()
 {
-	std::cout << "hello world!!" << std::endl;
-
 	ServerSocket* ssocket = new ServerSocket;
-	ssocket->start();
+	ssocket->bindSocket().lookForConnection();
 
 	return 0;
 }

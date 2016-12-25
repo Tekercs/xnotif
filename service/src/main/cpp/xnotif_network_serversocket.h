@@ -5,7 +5,7 @@
 #include <netinet/in.h>
 
 
-namespace xnoteserv::networking
+namespace xnotif::network
 {
 	class ServerSocket
 	{
@@ -17,7 +17,8 @@ namespace xnoteserv::networking
 		static const uint16_t PORT_NUMBER = 14567;
 
 		ServerSocket();
-		void start();
+		ServerSocket& bindSocket();
+		void lookForConnection();
 	};
 }
 
