@@ -10,6 +10,8 @@ namespace xnotif::network
 
 	public:
 		Connection(int clientDesc);
+		~Connection();
+		void closeConnection();
 		
 	};
 }
