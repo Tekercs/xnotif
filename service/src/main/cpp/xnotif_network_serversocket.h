@@ -21,7 +21,7 @@ namespace xnotif::network
 
 		ServerSocket& bindSocket();
 		Connection* lookForConnection();
-		void closeSocket();
+		void close();
 	};
 }
 

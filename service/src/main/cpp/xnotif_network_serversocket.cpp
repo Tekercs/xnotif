@@ -15,7 +15,7 @@ xnotif::network::ServerSocket::ServerSocket()
 
 xnotif::network::ServerSocket::~ServerSocket()
 {
-	this->closeSocket();
+	this->close();
 }
 
 xnotif::network::ServerSocket& xnotif::network::ServerSocket::bindSocket()
@@ -35,7 +35,7 @@ xnotif::network::Connection* xnotif::network::ServerSocket::lookForConnection()
 	return new Connection(clientSocket);
 }
 
-void xnotif::network::ServerSocket::closeSocket()
+void xnotif::network::ServerSocket::close()
 {
-	close(this->socketDesc);
+	shutdown(this->socketDesc, 2);
 }

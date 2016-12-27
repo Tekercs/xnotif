@@ -9,7 +9,7 @@ int main()
 	ServerSocket* ssocket = new ServerSocket;
 	Connection* wildConnection = ssocket->bindSocket().lookForConnection();
 
-	ssocket->closeSocket();
+	ssocket->close();
 
 	return 0;
 }
