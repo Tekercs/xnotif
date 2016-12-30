@@ -4,7 +4,14 @@ model
 {
     components 
     {
-        main(NativeExecutableSpec) 
-        { }
+        main(NativeExecutableSpec)
+        {
+            binaries.all
+            {
+                cppCompiler.args "--std=c++11"
+                cppCompiler.args "-pthread"
+                linker.args '-pthread'
+            }       	
+        }
     }
 }
