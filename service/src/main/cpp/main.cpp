@@ -8,6 +8,7 @@ int main()
 {
 	ServerSocket* ssocket = new ServerSocket;
 	Connection* wildConnection = ssocket->bindSocket().lookForConnection();
+
 	wildConnection->listenIncoming();
 
 	while (true) {}

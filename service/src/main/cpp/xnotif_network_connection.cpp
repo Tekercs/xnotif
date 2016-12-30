@@ -26,9 +26,23 @@ void xnotif::network::Connection::listenIncoming()
 {
 	this->messageListener = new std::thread([&]() 
 	{
-		while (!this->stopListener)
-		{
-			std::cout << "Listening !!" << std::endl;
-		}
+		int bytesRead;
+		do
+		{	
+			std::cout << this->clientDesc << std::endl;
+
+			char* tempContainer = new char[2000];
+			bytesRead = recv(this->clientDesc, tempContainer, 2000, 0);
+
+		  	if (bytesRead != 0)
+		  	{
+		  		std::cout << "message arrived: " << std::endl;
+		  		std::string incomingMessage(tempContainer);
+		  		std::cout << incomingMessage << std::endl;
+		  	}
+
+		}while (!this->stopListener && bytesRead != 0);
+
+		std::cout << "closed lel" << std::endl;
 	});
 }
