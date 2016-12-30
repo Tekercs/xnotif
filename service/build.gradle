@@ -1,0 +1,17 @@
+apply plugin: "cpp"
+
+model 
+{
+    components 
+    {
+        main(NativeExecutableSpec)
+        {
+            binaries.all
+            {
+                cppCompiler.args "--std=c++11"
+                cppCompiler.args "-pthread"
+                linker.args '-pthread'
+            }       	
+        }
+    }
+}
