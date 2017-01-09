@@ -44,4 +44,14 @@ public class MainActivity extends AppCompatActivity
         NotificationManager notiManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notiManager.notify(00125, noti);
     }
+
+    public void searchComputerConnection(View view)
+    {
+        /**
+         * TODO
+         * search computer connection
+         * via UDP broadcasting!
+         */
+        System.out.println("searching...");
+    }
 }
