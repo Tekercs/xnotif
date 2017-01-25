@@ -54,5 +54,7 @@ public class MainActivity extends AppCompatActivity
          * via UDP broadcasting!
          */
         System.out.println("searching...");
+
+        startActivity(new Intent(this, ConnectionActivity.class));
     }
 }

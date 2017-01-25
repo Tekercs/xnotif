@@ -18,6 +18,13 @@ public class DesktopConnection
     private InetAddress address;
     private int port;
 
+    public DesktopConnection(String hostName, String address, int port) throws IOException
+    {
+        this.address = InetAddress.getByName(address);
+        this.port = port;
+        this.hostName = hostName;
+    }
+
     public DesktopConnection(String hostName, InetAddress address, int port) throws IOException
     {
         this.address = address;
