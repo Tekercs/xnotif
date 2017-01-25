@@ -1,4 +1,4 @@
-package me.tekercs.xnotif;
+package me.tekercs.xnotif.activities;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import me.tekercs.xnotif.R;
 import me.tekercs.xnotif.services.NotificationCatchService;
 
 public class MainActivity extends AppCompatActivity
