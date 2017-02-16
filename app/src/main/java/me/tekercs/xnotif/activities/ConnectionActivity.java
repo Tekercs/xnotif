@@ -7,8 +7,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import me.tekercs.xnotif.R;
+import me.tekercs.xnotif.helpers.Observer;
+import me.tekercs.xnotif.networking.ConnectionLookup;
 import me.tekercs.xnotif.networking.DesktopConnection;
 
 public class ConnectionActivity extends AppCompatActivity
@@ -26,12 +30,11 @@ public class ConnectionActivity extends AppCompatActivity
 
         System.out.println("Lookup activity started...");
 
-        try {
-            this.displayConnection(new DesktopConnection("barack", "127.0.0.1", 6000));
-            this.displayConnection(new DesktopConnection("barack", "127.0.0.1", 6000));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ConnectionLookup connectionLookup = new ConnectionLookup();
+        
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(connectionLookup);
+
     }
 
     public void displayConnection(DesktopConnection connection)
@@ -45,5 +48,4 @@ public class ConnectionActivity extends AppCompatActivity
         linearLayout.addView(tempTextView);
         this.listHolder.addView(linearLayout);
     }
-
 }
