@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <string.h>
-#include "xnotif_network_serversocket.h"
+#include <xnotif_network_serversocket.h>
 
 xnotif::network::ServerSocket::ServerSocket()
 {

@@ -6,6 +6,23 @@ model
     {
         main(NativeExecutableSpec)
         {
+			sources
+			{
+				cpp
+				{
+					source
+					{
+						srcDirs "src/main/cpp"
+						include "**/*.cpp"
+					}
+
+					exportedHeaders 
+					{
+                        srcDirs "src/main/cpp"
+                    }
+				}
+			}
+
             binaries.all
             {
                 cppCompiler.args "--std=c++11"

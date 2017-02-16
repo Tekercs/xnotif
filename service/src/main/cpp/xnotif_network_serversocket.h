@@ -3,7 +3,7 @@
 
 #include <cstdint>
 #include <netinet/in.h>
-#include "xnotif_network_connection.h"
+#include <xnotif_network_connection.h>
 
 namespace xnotif::network
 {
