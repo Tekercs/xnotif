@@ -50,9 +50,9 @@ void xnotif::network::IdentityBroadcast::start()
 		while (!this->stopThread)	
 		{
 			messageSize = recvfrom(this->sock,buffer,BUFFER_SIZE,0,(struct sockaddr *)&serverStorage, &addressSize);
-			
-		
+		 			
 			message = buffer;
+            memset( buffer, '\0', sizeof(char)*BUFFER_SIZE );
 
 			std::cout << message << std::endl;	
 		}	
