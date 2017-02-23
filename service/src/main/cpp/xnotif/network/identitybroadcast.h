@@ -14,13 +14,11 @@ namespace xnotif::network
 	private:
 		int sock;
 		struct sockaddr_in address;
-		std::string addressToCast;
-		int portToCast;
 		std::thread* broadcastThread;
 		bool stopThread;
 
 	public:
-		IdentityBroadcast(std::string addressToCast, int portToCast);
+		IdentityBroadcast();
 		void start();
 		void stop();
 

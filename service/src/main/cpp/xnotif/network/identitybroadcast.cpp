@@ -7,17 +7,13 @@
 #include <stdlib.h>
 #include <thread>
 
-#define BUFFER_SIZE 4096
+#define BUFFER_SIZE 1
 
-xnotif::network::IdentityBroadcast::IdentityBroadcast(std::string addressToCast, int portToCast)
+xnotif::network::IdentityBroadcast::IdentityBroadcast()
 {
-	
-	this->addressToCast = addressToCast;
-	this->portToCast = portToCast;
 	this->stopThread = false;
 
 	this->setupSocket();
-
 }
 
 void xnotif::network::IdentityBroadcast::setupSocket()
@@ -36,25 +32,18 @@ void xnotif::network::IdentityBroadcast::start()
 {
 	this->broadcastThread = new std::thread([&]()  
 	{
-		// thread started
-		// listening for incoming request and send back the IP and the port
-
 		char buffer[BUFFER_SIZE];
 		int messageSize;
 		struct sockaddr_storage serverStorage;
-		socklen_t addressSize;
-		std::string message;		
+		socklen_t addressSize;		
 
 		addressSize = sizeof serverStorage;
 
 		while (!this->stopThread)	
 		{
-			messageSize = recvfrom(this->sock,buffer,BUFFER_SIZE,0,(struct sockaddr *)&serverStorage, &addressSize);
-		 			
-			message = buffer;
-            memset( buffer, '\0', sizeof(char)*BUFFER_SIZE );
+			messageSize = recvfrom(this->sock,buffer,BUFFER_SIZE,0,(struct sockaddr *)&serverStorage, &addressSize); 
 
-			std::cout << message << std::endl;	
+			sendto(this->sock, " ", 1, 0,(struct sockaddr *)&serverStorage, addressSize);	
 		}	
 	
 	});			

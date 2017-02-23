@@ -7,7 +7,7 @@ using namespace xnotif::network;
 
 int main()
 {
-	IdentityBroadcast* broadcast = new IdentityBroadcast("120", 125);
+	IdentityBroadcast* broadcast = new IdentityBroadcast();
 	broadcast->start();
 
 	ServerSocket* ssocket = new ServerSocket;
