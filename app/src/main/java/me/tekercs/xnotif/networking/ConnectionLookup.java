@@ -77,7 +77,7 @@ public class ConnectionLookup implements Runnable
             InetAddress address = InetAddress.getByName("255.255.255.255");
 
             byte[] message = "help".getBytes();
-            DatagramPacket packet = new DatagramPacket(message, message.length, address, 14567);
+            DatagramPacket packet = new DatagramPacket(message, message.length, address, 14568);
 
             socket.send(packet);
             System.out.println("sent");
