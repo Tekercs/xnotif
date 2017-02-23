@@ -1,4 +1,4 @@
-#include <xnotif_network_identitybroadcast.h>
+#include <xnotif/network/identitybroadcast.h>
 #include <stdio.h>
 #include <sys/socket.h>
 #include <netinet/in.h>

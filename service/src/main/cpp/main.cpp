@@ -1,7 +1,7 @@
 #include <iostream>
-#include <xnotif_network_serversocket.h>
-#include <xnotif_network_identitybroadcast.h>
-#include <xnotif_network_connection.h>
+#include <xnotif/network/serversocket.h>
+#include <xnotif/network/identitybroadcast.h>
+#include <xnotif/network/connection.h>
 
 using namespace xnotif::network;
 
