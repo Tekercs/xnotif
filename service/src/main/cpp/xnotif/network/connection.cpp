@@ -1,4 +1,4 @@
-#include "xnotif_network_connection.h"
+#include <xnotif/network/connection.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <iostream>
