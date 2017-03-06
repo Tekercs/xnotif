@@ -14,38 +14,27 @@ import java.net.Socket;
 public class DesktopConnection
 {
     private Socket socket;
-    private String hostName;
     private InetAddress address;
-    private int port;
     public static final int DEFAULT_PORT = 14567;
 
-    public DesktopConnection(String hostName, String address, int port) throws IOException
-    {
-        this.address = InetAddress.getByName(address);
-        this.port = port;
-        this.hostName = hostName;
-    }
-
-    public DesktopConnection(String hostName, InetAddress address, int port) throws IOException
+    public DesktopConnection(InetAddress address) throws IOException
     {
         this.address = address;
-        this.port = port;
-        this.hostName = hostName;
     }
 
     public String getHostName()
     {
-        return hostName;
+        return this.address.getHostName();
+    }
+
+    public String getIpAddress()
+    {
+        return this.address.getHostAddress();
     }
 
     public InetAddress getAddress()
     {
         return address;
-    }
-
-    public int getPort()
-    {
-        return port;
     }
 
     public boolean isAlive()
@@ -55,7 +44,7 @@ public class DesktopConnection
 
     public DesktopConnection connect() throws IOException
     {
-        this.socket = new Socket(this.address, this.port);
+        this.socket = new Socket(this.address, DesktopConnection.DEFAULT_PORT);
 
         return this;
     }

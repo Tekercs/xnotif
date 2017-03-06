@@ -44,11 +44,11 @@ public class ConnectionLookup implements Runnable
         return connections.size() != 0;
     }
 
-    private void registerConnection(String hostName, String address)
+    private void registerConnection(InetAddress address)
     {
         try
         {
-            DesktopConnection tempConnection = new DesktopConnection(hostName, address, DesktopConnection.DEFAULT_PORT);
+            DesktopConnection tempConnection = new DesktopConnection(address);
             this.connections.add(tempConnection);
 
             this.signifyObservers();
@@ -98,8 +98,7 @@ public class ConnectionLookup implements Runnable
                 {
                     socket.receive(packet);
 
-                    serverAddress = packet.getAddress();
-                    this.connections.add(new DesktopConnection(serverAddress.getHostName(), serverAddress.getHostAddress(), DesktopConnection.DEFAULT_PORT));
+                    this.registerConnection(packet.getAddress());
                 }
             }
             catch (SocketTimeoutException e)
