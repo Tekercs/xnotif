@@ -4,13 +4,12 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.Callable;
 
-import me.tekercs.xnotif.activities.ConnectionActivity;
 import me.tekercs.xnotif.helpers.Observer;
 
 /**
@@ -21,6 +20,8 @@ public class ConnectionLookup implements Runnable
 {
     private List<Observer> observers;
     private Queue<DesktopConnection> connections;
+    private static final int SOCKET_TIMEOUT = 180000;
+
 
     public ConnectionLookup()
     {
@@ -43,11 +44,11 @@ public class ConnectionLookup implements Runnable
         return connections.size() != 0;
     }
 
-    private void registerConnection(String hostName, String address, int port)
+    private void registerConnection(String hostName, String address)
     {
         try
         {
-            DesktopConnection tempConnection = new DesktopConnection(hostName, address, port);
+            DesktopConnection tempConnection = new DesktopConnection(hostName, address, DesktopConnection.DEFAULT_PORT);
             this.connections.add(tempConnection);
 
             this.signifyObservers();
@@ -73,6 +74,7 @@ public class ConnectionLookup implements Runnable
         try
         {
             DatagramSocket socket = new DatagramSocket();
+            socket.setSoTimeout(ConnectionLookup.SOCKET_TIMEOUT);
 
             InetAddress address = InetAddress.getByName("255.255.255.255");
 
@@ -80,7 +82,31 @@ public class ConnectionLookup implements Runnable
             DatagramPacket packet = new DatagramPacket(message, message.length, address, 14568);
 
             socket.send(packet);
-            System.out.println("sent");
+            /**
+             * TODO
+             * put it to the queue
+             * and wait for the next answer
+             */
+
+            try
+            {
+                message = new byte[1];
+                packet = new DatagramPacket(message, message.length);
+                InetAddress serverAddress;
+
+                while (true)
+                {
+                    socket.receive(packet);
+
+                    serverAddress = packet.getAddress();
+                    this.connections.add(new DesktopConnection(serverAddress.getHostName(), serverAddress.getHostAddress(), DesktopConnection.DEFAULT_PORT));
+                }
+            }
+            catch (SocketTimeoutException e)
+            {
+                System.out.println("Timeout expired: stop waiting");
+            }
+
 
         } catch (Exception e)
         {

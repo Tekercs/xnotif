@@ -17,6 +17,7 @@ public class DesktopConnection
     private String hostName;
     private InetAddress address;
     private int port;
+    public static final int DEFAULT_PORT = 14567;
 
     public DesktopConnection(String hostName, String address, int port) throws IOException
     {

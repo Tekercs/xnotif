@@ -15,7 +15,7 @@ import me.tekercs.xnotif.helpers.Observer;
 import me.tekercs.xnotif.networking.ConnectionLookup;
 import me.tekercs.xnotif.networking.DesktopConnection;
 
-public class ConnectionActivity extends AppCompatActivity
+public class ConnectionActivity extends AppCompatActivity implements Observer
 {
 
     private LinearLayout listHolder;
@@ -47,5 +47,16 @@ public class ConnectionActivity extends AppCompatActivity
 
         linearLayout.addView(tempTextView);
         this.listHolder.addView(linearLayout);
+    }
+
+    @Override
+    public void signify()
+    {
+        /**
+         * TODO
+         * Get the desktop Connection form the
+         * ConnectionLookip queue
+         * then displayConnection it
+         */
     }
 }
