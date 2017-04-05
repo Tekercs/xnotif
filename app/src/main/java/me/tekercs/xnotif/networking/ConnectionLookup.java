@@ -22,7 +22,6 @@ public class ConnectionLookup implements Runnable
     private Queue<DesktopConnection> connections;
     private static final int SOCKET_TIMEOUT = 180000;
 
-
     public ConnectionLookup()
     {
         this.observers = new ArrayList<>();
@@ -61,7 +60,7 @@ public class ConnectionLookup implements Runnable
     private void signifyObservers()
     {
         for (Observer observer : this.observers)
-            observer.signify();
+            observer.update();
     }
 
     @Override
@@ -99,6 +98,7 @@ public class ConnectionLookup implements Runnable
                     socket.receive(packet);
 
                     this.registerConnection(packet.getAddress());
+                    this.signifyObservers();
                 }
             }
             catch (SocketTimeoutException e)

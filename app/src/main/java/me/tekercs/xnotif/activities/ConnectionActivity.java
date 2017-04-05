@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -19,6 +18,7 @@ public class ConnectionActivity extends AppCompatActivity implements Observer
 {
 
     private LinearLayout listHolder;
+    private ConnectionLookup connectionLookup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -27,30 +27,40 @@ public class ConnectionActivity extends AppCompatActivity implements Observer
         setContentView(R.layout.activity_connection);
 
         this.listHolder = (LinearLayout) findViewById(R.id.list_holder);
-
-        System.out.println("Lookup activity started...");
-
-        ConnectionLookup connectionLookup = new ConnectionLookup();
+        this.connectionLookup = new ConnectionLookup();
+        this.connectionLookup.addObserver(this);
         
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(connectionLookup);
-
     }
 
-    public void displayConnection(DesktopConnection connection)
+    private void displayConnection(DesktopConnection connection)
     {
-        LinearLayout linearLayout = new LinearLayout(this);
+        final LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         TextView tempTextView = new TextView(this);
         tempTextView.setText(connection.getHostName());
 
+        Button tempButton = new Button(this);
+        tempButton.setText("Connect");
+
         linearLayout.addView(tempTextView);
-        this.listHolder.addView(linearLayout);
+        linearLayout.addView(tempButton);
+
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                listHolder.addView(linearLayout);
+            }
+        });
+
     }
 
     @Override
-    public void signify()
+    public void update()
     {
         /**
          * TODO
@@ -58,5 +68,7 @@ public class ConnectionActivity extends AppCompatActivity implements Observer
          * ConnectionLookip queue
          * then displayConnection it
          */
+        System.out.println("igen ittvagyunk");
+        this.displayConnection(this.connectionLookup.getNextConnection());
     }
 }

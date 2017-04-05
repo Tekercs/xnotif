@@ -6,5 +6,5 @@ package me.tekercs.xnotif.helpers;
 
 public interface Observer
 {
-    void signify();
+    void update();
 }
