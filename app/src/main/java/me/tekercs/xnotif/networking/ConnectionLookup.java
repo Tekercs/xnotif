@@ -19,7 +19,7 @@ import me.tekercs.xnotif.helpers.Observer;
 public class ConnectionLookup implements Runnable
 {
     private List<Observer> observers;
-    private Queue<DesktopConnection> connections;
+    private Queue<InetAddress> connections;
     private static final int SOCKET_TIMEOUT = 180000;
 
     public ConnectionLookup()
@@ -33,7 +33,7 @@ public class ConnectionLookup implements Runnable
         this.observers.add(observer);
     }
 
-    public DesktopConnection getNextConnection()
+    public InetAddress getNextConnection()
     {
         return connections.remove();
     }
@@ -41,20 +41,6 @@ public class ConnectionLookup implements Runnable
     public boolean isAnyConnection()
     {
         return connections.size() != 0;
-    }
-
-    private void registerConnection(InetAddress address)
-    {
-        try
-        {
-            DesktopConnection tempConnection = new DesktopConnection(address);
-            this.connections.add(tempConnection);
-
-            this.signifyObservers();
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
     }
 
     private void signifyObservers()
@@ -66,9 +52,6 @@ public class ConnectionLookup implements Runnable
     @Override
     public void run()
     {
-        // ide kell a networking reszt implementalni
-        // kikuldi a szorast majd halgat a valasozkra
-        // ha jon valasz akkor meghivjra ra a registerConnectiont
 
         try
         {
@@ -81,23 +64,17 @@ public class ConnectionLookup implements Runnable
             DatagramPacket packet = new DatagramPacket(message, message.length, address, 14568);
 
             socket.send(packet);
-            /**
-             * TODO
-             * put it to the queue
-             * and wait for the next answer
-             */
 
+            message = new byte[1];
+            packet = new DatagramPacket(message, message.length);
             try
             {
-                message = new byte[1];
-                packet = new DatagramPacket(message, message.length);
-                InetAddress serverAddress;
 
                 while (true)
                 {
                     socket.receive(packet);
 
-                    this.registerConnection(packet.getAddress());
+                    this.connections.add(packet.getAddress());
                     this.signifyObservers();
                 }
             }
@@ -105,7 +82,6 @@ public class ConnectionLookup implements Runnable
             {
                 System.out.println("Timeout expired: stop waiting");
             }
-
 
         } catch (Exception e)
         {

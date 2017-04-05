@@ -11,15 +11,18 @@ import java.net.Socket;
  * Created by sebestyen on 10/01/17.
  */
 
-public class DesktopConnection
+public enum  DesktopConnection
 {
+    INSTANCE;
     private Socket socket;
     private InetAddress address;
     public static final int DEFAULT_PORT = 14567;
 
-    public DesktopConnection(InetAddress address) throws IOException
+    public DesktopConnection setAddress(InetAddress address)
     {
         this.address = address;
+
+        return this;
     }
 
     public String getHostName()

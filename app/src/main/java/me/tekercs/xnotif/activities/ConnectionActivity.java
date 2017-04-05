@@ -2,10 +2,13 @@ package me.tekercs.xnotif.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -34,18 +37,36 @@ public class ConnectionActivity extends AppCompatActivity implements Observer
         executor.execute(connectionLookup);
     }
 
-    private void displayConnection(DesktopConnection connection)
+    private void displayConnection(InetAddress connection)
     {
         final LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        TextView tempTextView = new TextView(this);
-        tempTextView.setText(connection.getHostName());
-
         Button tempButton = new Button(this);
-        tempButton.setText("Connect");
+        tempButton.setText(connection.getHostName());
 
-        linearLayout.addView(tempTextView);
+        tempButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Button button = (Button) v;
+                String tempAddress = (String) button.getText();
+
+                try
+                {
+                    InetAddress address = InetAddress.getByName(tempAddress);
+                    DesktopConnection.INSTANCE.setAddress(address);
+
+                    System.out.println(DesktopConnection.INSTANCE.getIpAddress());
+                }
+                catch (UnknownHostException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         linearLayout.addView(tempButton);
 
         runOnUiThread(new Runnable()
@@ -62,13 +83,6 @@ public class ConnectionActivity extends AppCompatActivity implements Observer
     @Override
     public void update()
     {
-        /**
-         * TODO
-         * Get the desktop Connection form the
-         * ConnectionLookip queue
-         * then displayConnection it
-         */
-        System.out.println("igen ittvagyunk");
         this.displayConnection(this.connectionLookup.getNextConnection());
     }
 }
