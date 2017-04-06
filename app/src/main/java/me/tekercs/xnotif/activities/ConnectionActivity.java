@@ -7,10 +7,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.crypto.spec.DESKeySpec;
 
 import me.tekercs.xnotif.R;
 import me.tekercs.xnotif.helpers.Observer;
@@ -57,8 +60,6 @@ public class ConnectionActivity extends AppCompatActivity implements Observer
                 {
                     InetAddress address = InetAddress.getByName(tempAddress);
                     DesktopConnection.INSTANCE.setAddress(address);
-
-                    System.out.println(DesktopConnection.INSTANCE.getIpAddress());
                 }
                 catch (UnknownHostException e)
                 {
