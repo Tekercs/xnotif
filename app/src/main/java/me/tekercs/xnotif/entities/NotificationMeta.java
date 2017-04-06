@@ -28,9 +28,9 @@ public class NotificationMeta
     @Override
     public String toString()
     {
-        return "NotificationMeta{" +
-                "title='" + title + '\'' +
-                ", text='" + text + '\'' +
-                '}';
+        return "NotiMeta##" +
+                "title=" + title + "##" +
+                "text=" + text + "##" +
+                "##";
     }
 }

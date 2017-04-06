@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 
+import java.io.IOException;
+
 import me.tekercs.xnotif.entities.NotificationMeta;
+import me.tekercs.xnotif.networking.DesktopConnection;
 
 /**
  * Created by sebestyen on 18/12/16.
@@ -17,8 +20,31 @@ public class NotificationCatchService extends NotificationListenerService
     {
         super.onNotificationPosted(sbn);
 
+        if (!DesktopConnection.INSTANCE.isAlive())
+        {
+            try
+            {
+                DesktopConnection.INSTANCE.connect();
+            }
+            catch (IOException e)
+            {
+                System.out.println("ezt dobja");
+                //e.printStackTrace();
+            }
+        }
+
         NotificationMeta notificationMeta = this.getNotificationMetaFrom(sbn);
-        System.out.println(notificationMeta.toString());
+        try
+        {
+            System.out.println(DesktopConnection.INSTANCE.isAlive());
+            DesktopConnection.INSTANCE.send(notificationMeta.toString());
+        }
+        catch (IOException e)
+        {
+            System.out.println(DesktopConnection.INSTANCE.isAlive());
+            System.out.println("Bejon mert nincs connection");
+            //e.printStackTrace();
+        }
     }
 
     private NotificationMeta getNotificationMetaFrom(StatusBarNotification sbn)
