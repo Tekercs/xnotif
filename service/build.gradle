@@ -2,12 +2,49 @@ apply plugin: "cpp"
 
 model 
 {
+	repositories
+	{
+		libs(PrebuiltLibraries)
+		{
+			notify
+			{
+				headers.srcDir "/usr/include/libnotify"
+			}
+
+			glib
+            {
+				headers.srcDir "/usr/include/glib-2.0"
+			}
+
+			png16
+            {
+				headers.srcDir "/usr/include/libpng16"
+			}
+
+			gdkpixbuf
+            {
+				headers.srcDir "/usr/include/gdk-pixbuf-2.0"
+			}
+
+			glibex
+            {
+                headers.srcDir "/usr/lib/glib-2.0/include"
+            }
+        }
+	}
+
     components 
     {
         main(NativeExecutableSpec)
         {
 			sources
 			{
+                cpp.lib library: 'gdkpixbuf', linkage: 'api'
+                cpp.lib library: 'png16', linkage: 'api'
+                cpp.lib library: 'glibex', linkage: 'api'
+                cpp.lib library: 'glib', linkage: 'api'
+                cpp.lib library: 'notify', linkage: 'api'
+
 				cpp
 				{
 					source
@@ -28,6 +65,7 @@ model
                 cppCompiler.args "--std=c++11"
                 cppCompiler.args "-pthread"
                 linker.args '-pthread'
+				linker.args "-lnotify"
             }       	
         }
     }
