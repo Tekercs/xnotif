@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <iostream>
+#include <libnotify/notify.h>
 
 xnotif::network::Connection::Connection(int clientDesc): clientDesc(clientDesc)
 {
@@ -36,9 +37,20 @@ void xnotif::network::Connection::listenIncoming()
 
 		  	if (bytesRead != 0)
 		  	{
+		  	    /*
 		  		std::cout << "message arrived: " << std::endl;
 		  		std::string incomingMessage(tempContainer);
 		  		std::cout << incomingMessage << std::endl;
+		  		*/
+
+		  		notify_init("Sample");
+                NotifyNotification* n = notify_notification_new ("Hello world",
+                                             "some message text... bla bla",
+                                              0);
+                notify_notification_set_timeout(n, 10000); // 10 seconds
+
+                if (!notify_notification_show(n, 0))
+                    std::cerr << "show has failed" << std::endl;
 		  	}
 
 		}while (!this->stopListener && bytesRead != 0);
