@@ -28,9 +28,8 @@ public class NotificationMeta
     @Override
     public String toString()
     {
-        return "NotiMeta##" +
-                "title=" + title + "##" +
-                "text=" + text + "##" +
-                "##";
+        return  title + "_" +
+                text + "_" +
+                "_";
     }
 }
