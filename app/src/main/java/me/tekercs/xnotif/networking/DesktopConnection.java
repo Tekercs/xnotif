@@ -16,6 +16,7 @@ public enum  DesktopConnection
     INSTANCE;
     private Socket socket;
     private InetAddress address;
+    private BufferedWriter writer;
     public static final int DEFAULT_PORT = 14567;
 
     public DesktopConnection setAddress(InetAddress address)
@@ -48,21 +49,22 @@ public enum  DesktopConnection
     public DesktopConnection connect() throws IOException
     {
         this.socket = new Socket(this.address, DesktopConnection.DEFAULT_PORT);
+        this.writer = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
 
         return this;
     }
 
     public DesktopConnection send(String message) throws IOException
     {
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
-        writer.write(message);
-        writer.close();
+        this.writer.write(message);
+        this.writer.flush();
 
         return this;
     }
 
     public void disconnect() throws IOException
     {
+        this.writer.close();
         this.socket.close();
     }
 }
